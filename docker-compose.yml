@@ -1,0 +1,36 @@
+services:
+  corplan:
+    build: ./corplan
+    restart: unless-stopped
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - NODE_ENV=production
+    networks:
+      - default
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=root_default
+      - traefik.http.routers.corplan.rule=Host(`corplan.laserstory1.id`)
+      - traefik.http.routers.corplan.entrypoints=websecure
+      - traefik.http.routers.corplan.tls.certresolver=mytlschallenge
+      - traefik.http.services.corplan.loadbalancer.server.port=3000
+
+  klirhub:
+    build: ./hub
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=root_default
+      - traefik.http.routers.klirhub.rule=Host(`klir.laserstory1.id`)
+      - traefik.http.routers.klirhub.entrypoints=websecure
+      - traefik.http.routers.klirhub.tls.certresolver=mytlschallenge
+      - traefik.http.services.klirhub.loadbalancer.server.port=80
+
+networks:
+  proxy:
+    external: true
+    name: root_default

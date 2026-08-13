@@ -1,0 +1,6 @@
+{
+  "name": "CorPlan",
+  "description": "Platform Konsultan Bisnis, Proyeksi Keuangan, & Investor Pitch Deck Generator Berbasis AI",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
