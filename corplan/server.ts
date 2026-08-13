@@ -366,7 +366,12 @@ function generateFallbackBenchmark(body: any) {
 }
 
 app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", service: "CorPlan Server" });
+  res.json({
+    status: "ok",
+    service: "CorPlan Server",
+    hasGeminiKey: Boolean(process.env.GEMINI_API_KEY),
+    geminiKeyLength: (process.env.GEMINI_API_KEY || "").length,
+  });
 });
 
 // Chat endpoint
