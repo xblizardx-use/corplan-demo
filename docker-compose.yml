@@ -30,6 +30,20 @@ services:
       - traefik.http.routers.klirhub.tls.certresolver=mytlschallenge
       - traefik.http.services.klirhub.loadbalancer.server.port=80
 
+  klirshowcase:
+    build: ./showcase
+    restart: unless-stopped
+    networks:
+      - default
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=root_default
+      - traefik.http.routers.klirshowcase.rule=Host(`ekosistem.laserstory1.id`)
+      - traefik.http.routers.klirshowcase.entrypoints=websecure
+      - traefik.http.routers.klirshowcase.tls.certresolver=mytlschallenge
+      - traefik.http.services.klirshowcase.loadbalancer.server.port=80
+
 networks:
   proxy:
     external: true
